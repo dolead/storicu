@@ -1,0 +1,27 @@
+{
+  "name": "storicu",
+  "version": "1.0.3",
+  "description": "An improved HTML5 History API to achieve more, with less headaches.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaphaelChauveau/storicu.git"
+  },
+  "keywords": [
+    "history",
+    "frontend",
+    "web",
+    "browser"
+  ],
+  "author": {
+    "name": "Raphael Chauveau"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RaphaelChauveau/storicu/issues"
+  },
+  "homepage": "https://github.com/RaphaelChauveau/storicu#readme"
+}
