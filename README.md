@@ -4,7 +4,7 @@
 Storicu is an improved HTML5 History API to achieve more, with less headaches.
 
 It is designed to follow the native HTML5 History API and add new features
-(access to full state history, additionnal parameters on popstate, clear
+(access to full state history, additional parameters on popstate, clear
 forward history, ...).
 
 ## API
@@ -25,9 +25,6 @@ management :
 Storicu introduces a new callback `storicu.onpopstate` to replace
 `window.onpopstate` :
 - `storicu.onpopstate({state}, delta, triggeredByAPI)` 
-
-## Support
-Storicu supports any browser that supports the native HTML5 History API.
 
 ## Limitations
 Storicu does not support HTML4 browsers, or browsers that do not support the
