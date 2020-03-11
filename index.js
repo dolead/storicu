@@ -1,6 +1,6 @@
-// TODO treat calls to storicu methods asynchrously so that there is no overlap ?
+'use strict';
 
-var storicu = (function () {
+module.exports = (function () {
   function Storicu() {
     const states = [];
     let stateIndex;
@@ -39,7 +39,7 @@ var storicu = (function () {
       }
 
       // state change callback ({state}, delta, isTriggeredByAPI)
-      if (this.onpopstate !== undefined) {
+      if (undefined !== this.onpopstate) {
         this.onpopstate({state: newState.state}, stateIndex - previousStateIndex, triggeredByAPI);
       }
     };
@@ -94,7 +94,7 @@ var storicu = (function () {
     this.forward = (distance = 1) => this.go(distance);
     this.back = (distance = 1) => this.go(-distance);
 
-    this.cleanForwardHistory = (delta=0) => { // HACK because successive calls are not handled correctly
+    this.cleanForwardHistory = (delta=0) => { // HACK because successive calls may overlap
       actions.push({ type: 'CLEAN_FORWARD_HISTORY', payload: states[stateIndex + delta] });
       window.history.go(-1 + delta);
     };

@@ -22,9 +22,9 @@ management :
 - `storicu.getStates()` *To come*
 - `storicu.getStateIndex()` *To come*
 
-Storicu introduces a new callback `storicu.onpopstate` to replace
+Storicu also introduces a new callback `storicu.onpopstate` to replace
 `window.onpopstate` :
-- `storicu.onpopstate({state}, delta, triggeredByAPI)` 
+- `storicu.onpopstate = ({state}, delta, triggeredByAPI) => {...}` 
 
 ## Limitations
 Storicu does not support HTML4 browsers, or browsers that do not support the
