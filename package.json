@@ -1,6 +1,6 @@
 {
   "name": "storicu",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "An improved HTML5 History API to achieve more, with less headaches.",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "keywords": [
     "history",
-    "frontend",
+    "front-end",
     "web",
     "browser"
   ],

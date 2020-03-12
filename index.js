@@ -33,7 +33,7 @@ module.exports = (function () {
       }
 
       // skip ghost state
-      if (stateIndex <= 0 && triggeredByAPI) {
+      if (stateIndex <= 0) {
         window.history.go(-1);
         return;
       }
@@ -98,6 +98,8 @@ module.exports = (function () {
       actions.push({ type: 'CLEAN_FORWARD_HISTORY', payload: states[stateIndex + delta] });
       window.history.go(-1 + delta);
     };
+
+    this.getStateIndex = () => stateIndex - 1;
 
     this.onpopstate = undefined;
 

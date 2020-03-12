@@ -20,7 +20,7 @@ In addition, Storicu provides additional methods to simplify history
 management :
 - `storicu.clearForwardHistory()`
 - `storicu.getStates()` *To come*
-- `storicu.getStateIndex()` *To come*
+- `storicu.getStateIndex()`
 
 Storicu also introduces a new callback `storicu.onpopstate` to replace
 `window.onpopstate` :
