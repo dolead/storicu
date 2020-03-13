@@ -18,7 +18,7 @@ methods :
 
 In addition, Storicu provides additional methods to simplify history
 management :
-- `storicu.clearForwardHistory()`
+- `storicu.cleanForwardHistory()`
 - `storicu.getStates()` *To come*
 - `storicu.getStateIndex()`
 
