@@ -1,6 +1,6 @@
 {
   "name": "storicu",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "An improved HTML5 History API to achieve more, with less headaches.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RaphaelChauveau/storicu.git"
+    "url": "git+https://github.com/dolead/storicu.git"
   },
   "keywords": [
     "history",
@@ -21,7 +21,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RaphaelChauveau/storicu/issues"
+    "url": "https://github.com/dolead/storicu/issues"
   },
-  "homepage": "https://github.com/RaphaelChauveau/storicu#readme"
+  "homepage": "https://github.com/dolead/storicu#readme"
 }
