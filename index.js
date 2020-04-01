@@ -1,23 +1,25 @@
 'use strict';
 
-module.exports = (function () {
+module.exports = function () {
   function Storicu() {
-    const states = [];
-    let stateIndex;
-    const actions = [];
+    var _this = this;
 
-    const buildStoricuState = (historyState, index) => ({
-      state: historyState,
-      index,
-      storicu: true,
-    });
+    var states = [];
+    var stateIndex;
+    var actions = [];
 
-    const handlePopState = (e) => {
-      const {state: newState} = e;
+    var buildStoricuState = function buildStoricuState(historyState, index) {
+      return {
+        state: historyState,
+        index: index,
+        storicu: true
+      };
+    };
 
-      const action = 0 === actions.length ? null : actions.splice(0, 1)[0];
-
-      const previousStateIndex = stateIndex;
+    var handlePopState = function handlePopState(e) {
+      var newState = e.state;
+      var action = 0 === actions.length ? null : actions.splice(0, 1)[0];
+      var previousStateIndex = stateIndex;
       stateIndex = newState.index;
 
       if (action && 'CLEAN_FORWARD_HISTORY' === action.type) {
@@ -27,87 +29,105 @@ module.exports = (function () {
         return;
       }
 
-      let triggeredByAPI = false;
+      var triggeredByAPI = false;
+
       if (action && 'GO' === action.type) {
         triggeredByAPI = true;
-      }
+      } // skip ghost state
 
-      // skip ghost state
+
       if (stateIndex <= 0) {
         window.history.go(-1);
         return;
-      }
+      } // state change callback ({state}, delta, isTriggeredByAPI)
 
-      // state change callback ({state}, delta, isTriggeredByAPI)
-      if (undefined !== this.onpopstate) {
-        this.onpopstate({state: newState.state}, stateIndex - previousStateIndex, triggeredByAPI);
+
+      if (undefined !== _this.onpopstate) {
+        _this.onpopstate({
+          state: newState.state
+        }, stateIndex - previousStateIndex, triggeredByAPI);
       }
     };
 
-    const init = () => {
-      let historyState = window.history.state;
+    var init = function init() {
+      var historyState = window.history.state;
 
       if (historyState && historyState.storicu) {
         historyState = historyState.state;
       }
 
-      const ghostState = buildStoricuState(historyState, 0);
+      var ghostState = buildStoricuState(historyState, 0);
       window.history.replaceState(ghostState, null, null);
       states.push(ghostState);
-
-      const firstState = buildStoricuState(historyState, 1);
+      var firstState = buildStoricuState(historyState, 1);
       window.history.pushState(firstState, null, null);
       states.push(firstState);
-
       stateIndex = 1;
-
       window.onpopstate = handlePopState;
     };
 
-    this.replaceState = (state, title, url) => {
-      const currentState = states[stateIndex];
+    this.replaceState = function (state, title, url) {
+      var currentState = states[stateIndex];
       currentState.state = state;
       window.history.replaceState(currentState, title, url);
     };
 
-    this.pushState = (state, title, url) => {
+    this.pushState = function (state, title, url) {
       stateIndex += 1;
-      const newState = buildStoricuState(state, stateIndex);
+      var newState = buildStoricuState(state, stateIndex);
       states.splice(stateIndex, states.length - stateIndex, newState);
       window.history.pushState(newState, title, url);
     };
 
-    this.go = (delta) => {
+    this.go = function (delta) {
       if (delta === 0) {
         return;
       }
 
-      if (stateIndex + delta <= 0) { // skipping ghost state
+      if (stateIndex + delta <= 0) {
+        // skipping ghost state
         delta -= 1;
       }
 
       stateIndex = stateIndex + delta;
-      actions.push({ type: 'GO', payload: null });
-      window.history.go(delta)
+      actions.push({
+        type: 'GO',
+        payload: null
+      });
+      window.history.go(delta);
     };
 
-    this.forward = (distance = 1) => this.go(distance);
-    this.back = (distance = 1) => this.go(-distance);
+    this.forward = function () {
+      var distance = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      return _this.go(distance);
+    };
 
-    this.cleanForwardHistory = (delta=0) => { // HACK because successive calls may overlap
-      actions.push({ type: 'CLEAN_FORWARD_HISTORY', payload: states[stateIndex + delta] });
+    this.back = function () {
+      var distance = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      return _this.go(-distance);
+    };
+
+    this.cleanForwardHistory = function () {
+      var delta = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      // HACK because successive calls may overlap
+      actions.push({
+        type: 'CLEAN_FORWARD_HISTORY',
+        payload: states[stateIndex + delta]
+      });
       window.history.go(-1 + delta);
     };
 
-    this.getStateIndex = () => stateIndex - 1;
+    this.getStateIndex = function () {
+      return stateIndex - 1;
+    };
 
     this.onpopstate = undefined;
-
     init();
   }
 
   if (undefined === window.storicu) {
     window.storicu = new Storicu();
   }
+
   return window.storicu;
-})();
+}();
