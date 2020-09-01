@@ -18,6 +18,9 @@ module.exports = function () {
 
     var handlePopState = function handlePopState(e) {
       var newState = e.state;
+      if (null === newState || !newState.storicu) {
+        return;
+      }
       var action = 0 === actions.length ? null : actions.splice(0, 1)[0];
       var previousStateIndex = stateIndex;
       stateIndex = newState.index;
