@@ -53,6 +53,9 @@ module.exports = function () {
     };
 
     var init = function init() {
+      if ('about:srcdoc' === window.location.href) {
+        return;
+      }
       var historyState = window.history.state;
 
       if (historyState && historyState.storicu) {
